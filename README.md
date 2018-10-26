@@ -1,4 +1,7 @@
-# Global ECMWF Forest Fire Reanalysis - Code to generate Data  
+# Global ECMWF Forest Fire Reanalysis - Code to generate Data
+
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.1472153.svg)](https://doi.org/10.5281/zenodo.1472153)
+
 
 This repository contains the code to generate the following fire danger reanalysis datasets archived in Zenodo:
 
