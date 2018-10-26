@@ -1,6 +1,6 @@
 # Global ECMWF Forest Fire Reanalysis - Code to generate Data  
 
-This repository contains the code used to generate the following fire danger reanalysis datasets archived in Zenodo:
+This repository contains the code to generate the following fire danger reanalysis datasets archived in Zenodo:
 
   1. Francesca Di Giuseppe, Claudia Vitolo, Blazej Krzeminski, \& Jesus San Miguel. (2018). Fine Fuel Moisture Code - ERA-Interim (concept - all versions) [Data set]. Zenodo. https://doi.org/10.5281/zenodo.1068893
 
