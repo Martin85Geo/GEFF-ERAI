@@ -9,7 +9,7 @@ This repository contains the data and scripts to reproduce the content of the GE
 
 The scripts folder contains:
 
-  - **data_descriptor.R**, the workflow to replicate the analysis described in the GEFF-ERAI data descriptor paper
+  - **geff-erai_data_descriptor.R**, the workflow to replicate the analysis described in the GEFF-ERAI data descriptor paper
   - **geff.sh contains**, the code to generate the following fire danger reanalysis datasets archived in Zenodo:
 
     1. Francesca Di Giuseppe, Claudia Vitolo, Blazej Krzeminski, \& Jesus San Miguel. (2018). Fine Fuel Moisture Code - ERA-Interim (concept - all versions) [Data set]. Zenodo. https://doi.org/10.5281/zenodo.1068893
