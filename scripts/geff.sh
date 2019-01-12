@@ -88,7 +88,7 @@ for index in ${VARS[*]}; do
 done
 
 # You can use slightly malformed dates (2016-9-9 rather than 2016-09-09).
-# The code below ensures that startdate and enddate are valid ISO 8601 dates. 
+# The code below ensures that startdate and enddate are valid ISO 8601 dates.
 # In case the script encounters unparseable data (ENDINGDATE=abcd) it will abort
 startdate=$(date -I -d "$STARTINGDATE") || exit -1
 enddateminusone=$(date -I -d "$ENDINGDATE") || exit -1
@@ -107,7 +107,7 @@ while [ "$d" != "$enddate" ]; do
   # echo ${infolder}/${infile}.tar
   ecp -o ${infolder}/${infile}.tar ${OUTDIR}
   # echo "De-compressing archive"
-  # Decompress (tar -xvf) 
+  # Decompress (tar -xvf)
   # and save in given folder (-C)
   # only the relevant file without folder structure(--strip-component 1)
   if [ "${FORECASTTYPE}" == "en" ]; then
@@ -116,7 +116,7 @@ while [ "$d" != "$enddate" ]; do
       ncfile=ECMWF_${ORIGIN}_${year}${month}${day}_1200_${member}
       tar -xvf ${OUTDIR}/${infile}.tar -C ${OUTDIR} \
         ${infile}/${ncfile}.nc --strip-components 1
-      for index in ${VARS[*]}; do      
+      for index in ${VARS[*]}; do
         # echo "Extracting indices"
         if [ "${index}" != "all" ]; then
           cdo --silent -select,name=${index} ${OUTDIR}/${ncfile}.nc \
@@ -129,7 +129,7 @@ while [ "$d" != "$enddate" ]; do
         ncfile=ECMWF_${ORIGIN}_${year}${month}${day}_1200_${member}
         tar -xvf ${OUTDIR}/${infile}.tar -C ${OUTDIR} \
           ${infile}/${ncfile}.nc --strip-components 1
-        for index in ${VARS[*]}; do      
+        for index in ${VARS[*]}; do
           # echo "Extracting indices"
           if [ "${index}" != "all" ]; then
             cdo --silent -select,name=${index} ${OUTDIR}/${ncfile}.nc \
@@ -143,7 +143,7 @@ while [ "$d" != "$enddate" ]; do
     ncfile=ECMWF_${ORIGIN}_${year}${month}${day}_1200_${FORECASTTYPE}
     tar -xvf ${OUTDIR}/${infile}.tar -C ${OUTDIR} \
       ${infile}/${ncfile}.nc --strip-components 1
-    for index in ${VARS[*]}; do      
+    for index in ${VARS[*]}; do
       # echo "Extracting indices"
       if [ "${index}" != "all" ]; then
         cdo --silent -select,name=${index} ${OUTDIR}/${ncfile}.nc \
@@ -153,7 +153,7 @@ while [ "$d" != "$enddate" ]; do
     done
   fi
   # echo "Removing unnecessary tar file"
-  rm ${OUTDIR}/${infile}.tar  
+  rm ${OUTDIR}/${infile}.tar
   # Increment of 1 day
   d=$(date -I -d "$d + 1 day")
 done
