@@ -1,7 +1,7 @@
 
 # Global ECMWF Forest Fire system - Fire danger reanalysis based on ERA-Interim (GEFF-ERAI)
 
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.1472153.svg)](https://doi.org/10.5281/zenodo.1472153)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.1472152.svg)](https://doi.org/10.5281/zenodo.1472152)
 
 This repository contains the data and scripts to reproduce the content of the GEFF-ERAI data descriptor submitted to the Scientific Data journal.
 
