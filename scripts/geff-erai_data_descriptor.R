@@ -36,7 +36,7 @@ round(cffdrs::fwi(input = y, init = init, out = "fwi"), 2)
 # Data is available from Natural Earth
 # https://www.naturalearthdata.com/downloads/10m-cultural-vectors/timezones/
 
-# Download, unzip and save shapefile in the folder datasets/ne_10m_time_zones
+# Download, unzip and save shapefile in the folder data/ne_10m_time_zones
 
 # GET DATA FROM SYNOP STATIONS #################################################
 # The code in this section can only run within ECMWF internal network because it
@@ -91,7 +91,7 @@ for (myHour in seq(0, 23, 1)){
       }
     }
   }
-  saveRDS(df, paste0("datasets/synop/tempdf_", myHour, ".rds"))
+  saveRDS(df, paste0("data/synop/tempdf_", myHour, ".rds"))
 }
 
 # Check log_error before proceeding.
@@ -105,7 +105,7 @@ for (myHour in 0:23){
   print(paste(myHour, "UTC"))
 
   # Read data.frame
-  df <- readRDS(paste0("datasets/synop/tempdf_", myHour, ".rds"))
+  df <- readRDS(paste0("data/synop/tempdf_", myHour, ".rds"))
   names(df) <- c("lat", "long", "id", "z", "value", "date", "param", "UTC_time")
   # Remove the column with z coordinate and re-arrange
   df <- df[, c(3, 1, 2, 6, 8, 7, 5)]
@@ -141,14 +141,6 @@ for (myHour in 0:23){
     df$timestamp_utc <- as.POSIXct(paste0(as.character(df$date), " ",
                                           myHour, ":00"),
                                    format = "%Y-%m-%d %H:%M", tz = "UTC")
-
-    # df$local_time <- NA
-    # unique_tz <- unique(df$tzid)
-    # for (i in seq_along(unique_tz)){
-    #   print(i)
-    #   idx <- which(df$tzid == unique_tz[i])
-    #   df$local_time[idx] <- hour(with_tz(timestamp_utc, unique_tz[i]))
-    # }
 
     df <- df %>% group_by(tzid) %>%
       mutate(local_time = hour(with_tz(timestamp_utc, tzid)))
@@ -209,19 +201,19 @@ for (myHour in 0:23){
 }
 
 # Save all the stations as they are
-saveRDS(stations_all, "datasets/stations_all.rds")
-saveRDS(df_all, "datasets/df_all.rds")
+saveRDS(stations_all, "data/stations_all.rds")
+saveRDS(df_all, "data/df_all.rds")
 
 # AVERAGE OVER THE 11-13 TIME WINDOW ###########################################
 # (datasets used hereafter are available within the repo) ######################
 
 rm(list = ls())
-df_all <- readRDS("datasets/df_all.rds")
+df_all <- readRDS("data/df_all.rds")
 
 df <- df_all %>%
   group_by(id, lat, long, tzid, season, yr, mon, day) %>%
   summarise(temp = last(`2t`), prec = last(tp), rh = last(rh), ws = last(ws))
-saveRDS(df, "datasets/df_12noon.rds")
+saveRDS(df, "data/df_12noon.rds")
 
 # ANALYSE STATION DATA #########################################################
 # (datasets used hereafter are available within the repo) ######################
@@ -229,21 +221,21 @@ saveRDS(df, "datasets/df_12noon.rds")
 rm(list = ls())
 
 # How many synop stations recorded data in 2017?
-stations_all <- readRDS("datasets/stations_all.rds") # 12777
+stations_all <- readRDS("data/stations_all.rds") # 12777
 # Some stations have slightly inconsistent coordinates
 # We group by id (assuming it is unique) and keep only the most frequent coords!
 stations_all <- stations_all %>% group_by(id) %>%
   summarize(lat = as.numeric(names(which.max(table(lat)))),
             long = as.numeric(names(which.max(table(long)))))
 # There are 10080 stations, in the text we mention ~10,000
-saveRDS(stations_all, "datasets/stations_all_unique.rds")
+saveRDS(stations_all, "data/stations_all_unique.rds")
 
 # How many SYNOP stations recorded all the necessary variables around local noon?
-df <- readRDS("datasets/df_12noon.rds")
+df <- readRDS("data/df_12noon.rds")
 stations_12noon <- df %>% group_by(id) %>%
   summarize(lat = as.numeric(names(which.max(table(lat)))),
             long = as.numeric(names(which.max(table(long))))) # 3803 stations
-saveRDS(stations_12noon, "datasets/stations_12noon_unique.rds")
+saveRDS(stations_12noon, "data/stations_12noon_unique.rds")
 
 # In the next step we will filter out the stations that have less than 30 days
 # of recordings and groups of less than 3 stations in a single time zone.
@@ -253,14 +245,16 @@ saveRDS(stations_12noon, "datasets/stations_12noon_unique.rds")
 rm(list = ls())
 
 # FWI from reanalysis
-fwi2017 <-  raster::brick("datasets/fwi2017re.nc")
+# Get fwi.nc from Zenodo: https://doi.org/10.5281/zenodo.1406194
+# Extract 2017 and save it in the file "data/fwi2017re.nc"
+fwi2017 <-  raster::brick("data/fwi2017re.nc")
 names(fwi2017) <- seq.Date(from = as.Date("2017-01-01"),
                            to = as.Date("2017-12-31"),
                            by = "day")
 
 # Load unique stations and data
-stations <- readRDS("datasets/stations_12noon_unique.rds")
-df <- readRDS("datasets/df_12noon.rds")
+stations <- readRDS("data/stations_12noon_unique.rds")
+df <- readRDS("data/df_12noon.rds")
 
 df_used <- data.frame(matrix(NA, nrow = 0, ncol = ncol(df) + 2))
 names(df_used) <- c(names(df), "fwiobs", "fwimod")
@@ -302,13 +296,13 @@ for (i in seq_along(stations$id)){
 
 # Remove NAs
 df <- df_used[complete.cases(df_used),]
-saveRDS(df, "datasets/df_used_with_fwi.rds")
+saveRDS(df, "data/df_used_with_fwi.rds")
 
 ############################# TABLE 2 ##########################################
 
 rm(list = ls())
 
-df <- readRDS("datasets/df_used_with_fwi.rds")
+df <- readRDS("data/df_used_with_fwi.rds")
 
 # Bias and Anomaly correlation by time, id and season
 dfx <- df %>%
@@ -324,12 +318,12 @@ dfx <- df %>%
   mutate(region = sapply(strsplit(tzid, "/"), `[`, 1),
          subregion = sapply(strsplit(tzid, "/"), `[`, 2)) %>%
   filter(region != "Etc") # remove undefined zones
-saveRDS(dfx, "datasets/df_used.rds")
+saveRDS(dfx, "data/df_used.rds")
 
 stations_used <- dfx %>% group_by(id) %>%
   summarize(lat = as.numeric(names(which.max(table(lat)))),
             long = as.numeric(names(which.max(table(long))))) # 3084 stations
-saveRDS(stations_used, "datasets/stations_used.rds")
+saveRDS(stations_used, "data/stations_used.rds")
 
 dfx_summary <- dfx %>%
   group_by(region, season) %>%
@@ -367,17 +361,17 @@ round(prop.table(table(dfx$season)), 2)
 rm(list = ls())
 
 # REANALYSIS 2017 only
-fwi2017 <- raster::brick("datasets/fwi2017re.nc")
+fwi2017 <- raster::brick("data/fwi2017re.nc")
 
 # Load time zones vector data
-timezonesmap <- rgdal::readOGR(dsn = "datasets/ne_10m_time_zones",
+timezonesmap <- rgdal::readOGR(dsn = "data/ne_10m_time_zones",
                                layer = "ne_10m_time_zones")
 
 # These are all the synop stations
-stations_all <- readRDS("datasets/stations_all_unique.rds")
+stations_all <- readRDS("data/stations_all_unique.rds")
 
 # Load stations used
-stations_used <- readRDS("datasets/stations_used.rds")
+stations_used <- readRDS("data/stations_used.rds")
 
 # Generate figure
 
@@ -406,7 +400,7 @@ dev.off()
 
 rm(list = ls())
 
-dfx <- readRDS("datasets/df_used.rds")
+dfx <- readRDS("data/df_used.rds")
 
 breaks_bias <- dput(round(as.numeric(quantile(dfx$bias,
                                          c(0.05, 0.25, 0.50, 0.75, 0.95))), 2))
@@ -460,7 +454,7 @@ fwi90 <- raster::calc(fwi,
                       progress = "text")
 
 # no-vegetation mask
-novegmask <- raster::raster("datasets/maskGlobCover2009reanalysis.nc")
+novegmask <- raster::raster("data/maskGlobCover2009reanalysis.nc")
 
 # masked version
 fwi90_masked <- fwi90
