@@ -1,21 +1,28 @@
-# Global ECMWF Forest Fire Reanalysis - Code to generate Data
+
+# Global ECMWF Forest Fire system - Fire danger reanalysis based on ERA-Interim (GEFF-ERAI)
 
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.1472153.svg)](https://doi.org/10.5281/zenodo.1472153)
 
+This repository contains the data and scripts to reproduce the content of the GEFF-ERAI data descriptor submitted to the Scientific Data journal.
 
-This repository contains the code to generate the following fire danger reanalysis datasets archived in Zenodo:
+[INSERT LINK HERE ONCE PUBLISHED]
 
-  1. Francesca Di Giuseppe, Claudia Vitolo, Blazej Krzeminski, \& Jesus San Miguel. (2018). Fine Fuel Moisture Code - ERA-Interim (concept - all versions) [Data set]. Zenodo. https://doi.org/10.5281/zenodo.1068893
+The scripts folder contains:
 
-  2. Francesca Di Giuseppe, Claudia Vitolo, Blazej Krzeminski, \& Jesus San Miguel. (2018). Duff Moisture Code - ERA-Interim (concept - all versions) [Data set]. Zenodo. https://doi.org/10.5281/zenodo.1068891
+  - **data_descriptor.R**, the workflow to replicate the analysis described in the GEFF-ERAI data descriptor paper
+  - **geff.sh contains**, the code to generate the following fire danger reanalysis datasets archived in Zenodo:
 
-  3. Francesca Di Giuseppe, Claudia Vitolo, Blazej Krzeminski, \& Jesus San Miguel. (2018). Drought Code - ERA-Interim (concept - all versions) [Data set]. Zenodo. https://doi.org/10.5281/zenodo.1068896
+    1. Francesca Di Giuseppe, Claudia Vitolo, Blazej Krzeminski, \& Jesus San Miguel. (2018). Fine Fuel Moisture Code - ERA-Interim (concept - all versions) [Data set]. Zenodo. https://doi.org/10.5281/zenodo.1068893
 
-  4. Francesca Di Giuseppe, Claudia Vitolo, Blazej Krzeminski, \& Jesus San Miguel. (2018). Initial Spread Index - ERA-Interim (concept - all versions) [Data set]. Zenodo. https://doi.org/10.5281/zenodo.1068887
+    2. Francesca Di Giuseppe, Claudia Vitolo, Blazej Krzeminski, \& Jesus San Miguel. (2018). Duff Moisture Code - ERA-Interim (concept - all versions) [Data set]. Zenodo. https://doi.org/10.5281/zenodo.1068891
 
-  5. Francesca Di Giuseppe, Claudia Vitolo, Blazej Krzeminski, \& Jesus San Miguel. (2018). Build Up Index - ERA-Interim (concept - all versions) [Data set]. Zenodo. https://doi.org/10.5281/zenodo.1068808
+    3. Francesca Di Giuseppe, Claudia Vitolo, Blazej Krzeminski, \& Jesus San Miguel. (2018). Drought Code - ERA-Interim (concept - all versions) [Data set]. Zenodo. https://doi.org/10.5281/zenodo.1068896
 
-  6. Francesca Di Giuseppe, Claudia Vitolo, Blazej Krzeminski, \& Jesus San Miguel. (2018). Fire Weather Index - ERA-Interim (concept - all versions) [Data set]. Zenodo. https://doi.org/10.5281/zenodo.1065400
+    4. Francesca Di Giuseppe, Claudia Vitolo, Blazej Krzeminski, \& Jesus San Miguel. (2018). Initial Spread Index - ERA-Interim (concept - all versions) [Data set]. Zenodo. https://doi.org/10.5281/zenodo.1068887
 
-  7. Francesca Di Giuseppe, Claudia Vitolo, Blazej Krzeminski, \& Jesus San Miguel. (2018). Daily Severity Rating - ERA-Interim (concept - all versions) [Data set]. Zenodo. https://doi.org/10.5281/zenodo.1095090
+    5. Francesca Di Giuseppe, Claudia Vitolo, Blazej Krzeminski, \& Jesus San Miguel. (2018). Build Up Index - ERA-Interim (concept - all versions) [Data set]. Zenodo. https://doi.org/10.5281/zenodo.1068808
+
+    6. Francesca Di Giuseppe, Claudia Vitolo, Blazej Krzeminski, \& Jesus San Miguel. (2018). Fire Weather Index - ERA-Interim (concept - all versions) [Data set]. Zenodo. https://doi.org/10.5281/zenodo.1065400
+
+    7. Francesca Di Giuseppe, Claudia Vitolo, Blazej Krzeminski, \& Jesus San Miguel. (2018). Daily Severity Rating - ERA-Interim (concept - all versions) [Data set]. Zenodo. https://doi.org/10.5281/zenodo.1095090
   
