@@ -20,6 +20,7 @@ y <- structure(list(long = -91.82, lat = 45.98, hour = 18,
                row.names = 1L, class = "data.frame")
 init <- data.frame(ffmc = 85, dmc = 6, dc = 15, lat = y$lat)
 round(cffdrs::fwi(input = y, init = init, out = "fwi"), 2)
+
 # ALGORITHM        & FFMC  & DMC  & DC    & ISI   & BUI  & FWI  & DSR\\
 # R package cffdrs & 87.69 & 7.29 & 17.76 & 10.85 & 7.28 & 9.46 & 1.45\\
 
@@ -343,29 +344,12 @@ round(prop.table(table(stations_used$lat >= 0)), 2)
 # How are stations distributed between seasons?
 round(prop.table(table(dfx$season)), 2)
 
-# # Bias in Europe
-# dfx %>% filter(region == "Europe", season == "Dry") %>% pull(bias) %>% median()
-# 
-# View(dfx %>% group_by(region) %>% summarise(bias = IQR(bias)))
-# View(dfx %>% group_by(region, season) %>% summarise(bias = IQR(bias)))
-# 
-# # Create a palette that maps factor levels to colors
-# pal <- colorFactor(rev(c("#440154FF", "#414487FF", "#2A788EFF",
-#                      "#22A884FF", "#7AD151FF", "#FDE725FF")),
-#                    domain = levels(dfx$bias_cat))
-# 
-# leaflet(dfx %>% filter(season == "Dry")) %>% addTiles() %>%
-#   addCircleMarkers(radius = 3, color = ~pal(bias_cat), label = ~bias)
 ############################# FIGURE 1 #########################################
 
 rm(list = ls())
 
 # REANALYSIS 2017 only
 fwi2017 <- raster::brick("data/fwi2017re.nc")
-
-# Load time zones vector data
-timezonesmap <- rgdal::readOGR(dsn = "data/ne_10m_time_zones",
-                               layer = "ne_10m_time_zones")
 
 # These are all the synop stations
 stations_all <- readRDS("data/stations_all_unique.rds")
@@ -385,7 +369,6 @@ world[world > 0] <- 0
 
 pdf(file = "figures/FIG_synop.pdf", width = 10, height = 6.7)
 raster::plot(world, col = "gray95", legend = FALSE)
-raster::plot(timezonesmap, col = NA, border = "gray70", lty = 2, add = TRUE)
 raster::plot(stations_all, col = "#FDE725FF", pch = 19, cex = 0.1, add = TRUE)
 raster::plot(stations_used, col = "#21908CFF", pch = 19, cex = 0.1, add = TRUE)
 legend(x = "bottom",
@@ -472,4 +455,4 @@ raster::plot(fig2, nc = 1, nr = 2,
 dev.off()
 
 # Reduce size of pdfs
-# tools::compactPDF(paths = "figures/", gs_quality = "printer")
+tools::compactPDF(paths = "figures/", gs_quality = "printer")

@@ -3,3 +3,13 @@
 .RData
 .Ruserdata
 *.Rproj
+figures/*
+data/ne_10m_time_zones/*
+data/synop/*
+data/fwi2017re.nc
+data/df_12noon.rds
+data/df_used.rds
+data/df_used_with_fwi.rds
+data/stations_12noon_unique.rds
+data/stations_all_unique.rds
+data/stations_used.rds
