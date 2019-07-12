@@ -5,7 +5,7 @@
 
 This repository contains the data and scripts to reproduce the content of the GEFF-ERAI data descriptor submitted to the Scientific Data journal.
 
-[INSERT LINK HERE ONCE PUBLISHED]
+Vitolo, C., Di Giuseppe, F., Krzeminski, B., & San-Miguel-Ayanz, J. (2019). A 1980–2018 global fire danger re-analysis dataset for the Canadian Fire Weather Indices. Scientific data, 6, 190032. https://doi.org/10.1038/sdata.2019.32
 
 The scripts folder contains:
 
